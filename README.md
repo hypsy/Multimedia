@@ -1,4 +1,23 @@
 # Multimedia
 
-Das ist das Git-Repository für das Projekt im Rahmen der Veranstaltung Multimedia. 
-Es wird eine 3D-Bildergalerie erstellt.
+Dies ist ein Projekt für die Veranstaltung Multimedia. Es wird eine 3D-Bildergalerie erstellt, dessen Thema durch den Nutzer festgelegt werden kann.
+
+1. Projekt in Unity öffnen 
+2. Assets -> Scenes -> Menu
+3. Oben auf den Play Button drücken 
+4. Thema auswählen
+5. Galerie genießen
+
+
+Assets
+|-3Dfrk (Asset für die Bilderrahmen aus dem Unity Store)
+|-JsonDotNet (Asset für die Deserialisierung von Json aus dem Unity Store)
+|-Materials
+|-Models
+|-PostProcessing
+|-Prefabs
+|-Scenes (Verschiedenen Szenen des Projekts -> Zum Starten hier bitte das Scene Menu wählen)
+|-Scripts (Skripte, die für die Galerie geschrieben wurden)
+|-Shaders
+|-Textures
+
