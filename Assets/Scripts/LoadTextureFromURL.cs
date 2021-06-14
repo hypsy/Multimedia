@@ -9,12 +9,13 @@ using Newtonsoft.Json.Linq;
 public class LoadTextureFromURL : MonoBehaviour
 {
 
-    public string TextureURL = "";
-
+    
+    public GameObject paintings;
+    public List<string> urls = new List<string>();
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(DownloadImage(TextureURL));
+        StartCoroutine(DownloadImage());
     }
 
     // Update is called once per frame
@@ -23,12 +24,13 @@ public class LoadTextureFromURL : MonoBehaviour
         
     }
 
-    IEnumerator DownloadImage(string MediaUrl)
+    IEnumerator DownloadImage()
     {
-        string topic="cat";
+        //string topic_theme= ChooseGalleryTheme.topic;
+        string topic_theme = ChooseGalleryTheme.topic;
         string auth = "Jy1XPTnH-UZo3OuFCcSJSZ5yxz7SlekrhDnBowAdNfk";
         string search_url="";
-        UnityWebRequest request_urls = UnityWebRequest.Get("https://api.unsplash.com/search/photos?query="+topic+"&client_id="+auth);
+        UnityWebRequest request_urls = UnityWebRequest.Get("https://api.unsplash.com/search/photos?query="+topic_theme+"&client_id="+auth);
         yield return request_urls.SendWebRequest();
         if (request_urls.isNetworkError || request_urls.isHttpError)
             Debug.Log(request_urls.error);
@@ -37,20 +39,29 @@ public class LoadTextureFromURL : MonoBehaviour
             string altered = response.Replace("'", " ").Replace("\"", "\'");
             Debug.Log(altered); 
             JObject json_response = JObject.Parse(altered);
+            
+            for(int i=0; i<paintings.transform.childCount; i++)
+            {
+                var results = json_response["results"][i]["urls"]["small"];
 
-            var results = json_response["results"][0]["urls"]["small"];
-
-            // serialize JSON results into .NET objects
-            Debug.Log(results);
-            search_url=results.ToString();
+                // serialize JSON results into .NET objects
+                Debug.Log(results);
+                search_url=results.ToString();
+                urls.Add(search_url);
+            }
+            
         }
-
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(search_url);
-        yield return request.SendWebRequest();
-        if (request.isNetworkError || request.isHttpError)
-            Debug.Log(request.error);
-        else
-            this.gameObject.GetComponent<Renderer>().material.mainTexture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+        for(int i=0; i< paintings.transform.childCount; i++)
+        {
+            search_url = urls[i];
+            UnityWebRequest request = UnityWebRequestTexture.GetTexture(search_url);
+            yield return request.SendWebRequest();
+            if (request.isNetworkError || request.isHttpError)
+                Debug.Log(request.error);
+            else
+                paintings.transform.GetChild(i).gameObject.GetComponent<Renderer>().material.mainTexture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+        }
+        
     }
 
 
