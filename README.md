@@ -1,4 +1,6 @@
 # Multimedia
+Der aktuelle Stand der Entwicklung kann unter: https://github.com/hypsy/Multimedia runtergeladen werden. 
+Wir empfehlen auch auf diese Lösung auszuweichen, falls das Zip-Archiv nicht so funktioniert, wie es soll.
 
 Dies ist ein Projekt für die Veranstaltung Multimedia. Es wird eine 3D-Bildergalerie erstellt, dessen Thema durch den Nutzer festgelegt werden kann.
 
