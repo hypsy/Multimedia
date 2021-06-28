@@ -12,7 +12,7 @@ public class ChooseGalleryTheme : MonoBehaviour
     {
         var dropdown = transform.GetComponent<Dropdown>();
         dropdown.options.Clear();
-        List<string> test = new List<string>(){"", "Katze", "Hund"};
+        List<string> test = new List<string>(){"", "Katze", "Hund", "Nature", "Classical Art", "Modern Art", "Animal Babies", "Animal", "Hawaii", "Holiday"};
         
         foreach(var item in test)
         {

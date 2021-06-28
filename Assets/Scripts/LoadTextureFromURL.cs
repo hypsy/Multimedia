@@ -30,7 +30,7 @@ public class LoadTextureFromURL : MonoBehaviour
         string topic_theme = ChooseGalleryTheme.topic;
         string auth = "Jy1XPTnH-UZo3OuFCcSJSZ5yxz7SlekrhDnBowAdNfk";
         string search_url="";
-        UnityWebRequest request_urls = UnityWebRequest.Get("https://api.unsplash.com/search/photos?query="+topic_theme+"&client_id="+auth);
+        UnityWebRequest request_urls = UnityWebRequest.Get("https://api.unsplash.com/search/photos?query="+topic_theme+"&per_page=30&client_id="+auth);
         yield return request_urls.SendWebRequest();
         if (request_urls.isNetworkError || request_urls.isHttpError)
             Debug.Log(request_urls.error);
