@@ -12,6 +12,8 @@ public class LoadTextureFromURL : MonoBehaviour
     
     public GameObject paintings;
     public List<string> urls = new List<string>();
+    public List<string> titles = new List<string>();
+    public List<string> authors = new List<string>();
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,9 @@ public class LoadTextureFromURL : MonoBehaviour
         string topic_theme = ChooseGalleryTheme.topic;
         string auth = "Jy1XPTnH-UZo3OuFCcSJSZ5yxz7SlekrhDnBowAdNfk";
         string search_url="";
+        string title_tmp="";
+        string author_tmp="";
+
         UnityWebRequest request_urls = UnityWebRequest.Get("https://api.unsplash.com/search/photos?query="+topic_theme+"&per_page=30&client_id="+auth);
         yield return request_urls.SendWebRequest();
         if (request_urls.isNetworkError || request_urls.isHttpError)
@@ -37,17 +42,22 @@ public class LoadTextureFromURL : MonoBehaviour
         else{
             string response= request_urls.downloadHandler.text;
             string altered = response.Replace("'", " ").Replace("\"", "\'");
-            Debug.Log(altered); 
             JObject json_response = JObject.Parse(altered);
             
             for(int i=0; i<paintings.transform.childCount; i++)
             {
                 var results = json_response["results"][i]["urls"]["small"];
+                var result_title = json_response["results"][i]["alt_description"];
+                var result_author = json_response["results"][i]["user"]["name"];
+                print(result_author);
 
                 // serialize JSON results into .NET objects
-                Debug.Log(results);
                 search_url=results.ToString();
+                title_tmp= result_title.ToString();
+                author_tmp= result_author.ToString();
                 urls.Add(search_url);
+                titles.Add(title_tmp);
+                authors.Add(author_tmp);
             }
             
         }
@@ -60,7 +70,11 @@ public class LoadTextureFromURL : MonoBehaviour
                 Debug.Log(request.error);
             else
                 paintings.transform.GetChild(i).gameObject.GetComponent<Renderer>().material.mainTexture = ((DownloadHandlerTexture)request.downloadHandler).texture;
-        }
+                if(paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>()){
+                paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>().newTitle = titles[i];
+                paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>().newAuthor = authors[i];
+
+        }}
         
     }
 
