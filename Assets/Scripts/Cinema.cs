@@ -39,8 +39,13 @@ public class Cinema : MonoBehaviour
             isLoadingUrl = true;
         }
         if(directUrlLoaded){
-            videoPlayer.url = currentUrl;
-            videoPlayer.Play();
+            try{
+                videoPlayer.url = currentUrl;
+                videoPlayer.Play();
+            }
+            catch(Exception e){
+                UnityEngine.Debug.LogWarning("Video konnte nicht abgespielt werden!");
+            }
             directUrlLoaded = false;
         }
         // if(videoPlayer.isPlaying && Vector3.Distance(transform.position, player.transform.position) >= 55.0f){

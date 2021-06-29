@@ -67,10 +67,10 @@ public class LoadTextureFromURL : MonoBehaviour
                 Debug.Log(request.error);
             else
                 paintings.transform.GetChild(i).gameObject.GetComponent<Renderer>().material.mainTexture = ((DownloadHandlerTexture)request.downloadHandler).texture;
-            // if(paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>()){
-            //     paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>().newTitle = titles[i];
-            //     paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>().newAuthor = authors[i];
-            // }
+            if(paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>()){
+                paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>().newTitle = titles[i];
+                paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>().newAuthor = authors[i];
+            }
         }   
     }
 }
