@@ -8,8 +8,6 @@ using Newtonsoft.Json.Linq;
 
 public class LoadTextureFromURL : MonoBehaviour
 {
-
-    
     public GameObject paintings;
     public List<string> urls = new List<string>();
     public List<string> titles = new List<string>();
@@ -49,7 +47,7 @@ public class LoadTextureFromURL : MonoBehaviour
                 var results = json_response["results"][i]["urls"]["small"];
                 var result_title = json_response["results"][i]["alt_description"];
                 var result_author = json_response["results"][i]["user"]["name"];
-                print(result_author);
+                // print(result_author);
 
                 // serialize JSON results into .NET objects
                 search_url=results.ToString();
@@ -59,7 +57,6 @@ public class LoadTextureFromURL : MonoBehaviour
                 titles.Add(title_tmp);
                 authors.Add(author_tmp);
             }
-            
         }
         for(int i=0; i< paintings.transform.childCount; i++)
         {
@@ -70,16 +67,10 @@ public class LoadTextureFromURL : MonoBehaviour
                 Debug.Log(request.error);
             else
                 paintings.transform.GetChild(i).gameObject.GetComponent<Renderer>().material.mainTexture = ((DownloadHandlerTexture)request.downloadHandler).texture;
-                if(paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>()){
-                paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>().newTitle = titles[i];
-                paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>().newAuthor = authors[i];
-
-        }}
-        
+            // if(paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>()){
+            //     paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>().newTitle = titles[i];
+            //     paintings.transform.GetChild(i).gameObject.GetComponent<Proximity>().newAuthor = authors[i];
+            // }
+        }   
     }
-
-
-
-
-
 }

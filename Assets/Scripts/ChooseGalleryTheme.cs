@@ -35,6 +35,5 @@ public class ChooseGalleryTheme : MonoBehaviour
         topic = dropdown.options[index].text;
         Debug.Log(topic);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    
     }
 }
